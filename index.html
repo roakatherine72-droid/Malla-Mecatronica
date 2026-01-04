@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malla Curricular - Ingeniería Mecatrónica INTEC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/3067/3067256.png">
+</head>
+<body>
+    <header>
+        <h1>Malla Curricular - Ingeniería Mecatrónica</h1>
+        <div class="subtitle">Instituto Tecnológico de Santo Domingo (INTEC) • Inicio: Trimestre Noviembre-Enero</div>
+    </header>
+
+    <div class="controls">
+        <div class="current-info">
+            <label for="currentTrimester">Trimestre Actual:</label>
+            <div class="current-trimester-selector">
+                <select id="currentTrimester"></select>
+                <span id="currentPeriod"></span>
+            </div>
+            <div id="currentDateRange"></div>
+        </div>
+        
+        <div class="controls-buttons">
+            <button id="resetProgress" class="btn-danger">Reiniciar Progreso</button>
+            <button id="exportData" class="btn-secondary">Exportar Datos</button>
+            <button id="importData" class="btn-secondary">Importar Datos</button>
+            <button id="showInstructions" class="btn-secondary">Instrucciones</button>
+        </div>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-value" id="completedSubjects">0</div>
+            <div class="stat-label">Materias Cursadas</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="completedProgress"></div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="delayedSubjects">0</div>
+            <div class="stat-label">Materias Retrasadas</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="delayedProgress"></div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="totalCredits">0</div>
+            <div class="stat-label">Créditos Completados</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="creditsProgress"></div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="gpa">0.00</div>
+            <div class="stat-label">Promedio (GPA)</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="gpaProgress"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="trimestersContainer" class="trimesters-container"></div>
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #e8f5e9;"></div>
+            <span>Materia Cursada</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #ffebee;"></div>
+            <span>Materia Retrasada</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #fff3e0;"></div>
+            <span>Materia Cíclica</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #f8f8f8;"></div>
+            <span>Materia Pendiente</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #e3f2fd;"></div>
+            <span>Materia Disponible</span>
+        </div>
+    </div>
+
+    <!-- Modal para editar materia -->
+    <div id="subjectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalSubjectTitle"></h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            
+            <form id="subjectForm">
+                <input type="hidden" id="modalSubjectCode">
+                <input type="hidden" id="modalSubjectTrimester">
+                
+                <div class="form-group">
+                    <label for="subjectCompleted">Estado:</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="subjectCompleted" name="subjectCompleted">
+                        <label for="subjectCompleted">Materia Cursada</label>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="subjectGrade">Calificación:</label>
+                        <select
